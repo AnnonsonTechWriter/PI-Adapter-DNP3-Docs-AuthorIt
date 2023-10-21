@@ -8,7 +8,11 @@ AVEVA Adapters produce various types of health data. You can use health data to 
 
 AVEVA Adapters also produce diagnostic data. You can use diagnostic data to find more information about a particular adapter instance. Diagnostic data lives alongside the health data and you can egress it using a health endpoint and setting `EnableDiagnostics` to`true`. You can configure `EnableDiagnostics` in the system's [General configuration](xref:GeneralConfiguration). For more information on available adapter diagnostics data, see [diagnostics](xref:AdapterDiagnostics).
 
+<<<<<<< HEAD
 In AVEVA Data Hub (ADH), both health and diagnostics data are created as assets. The data are available in the Asset Explorer and you can use them in the ADH Trend feature. For more information, see the ADH documentation [Assets](https://docs.osisoft.com/bundle/ocs/page/add-organize-data/organize-data/assets/asset-concept.html).
+=======
+In AVEVA Data Hub (ADH), both health and diagnostics data are created as assets. The data are available in the Asset Explorer and you can use them in the AVEVA Data Hub Trend feature. For more information, see the AVEVA Data Hub documentation [Assets](https://docs.osisoft.com/bundle/ocs/page/add-organize-data/organize-data/assets/asset-concept.html).
+>>>>>>> ece23c8ba636e7eaadcc979848d692db04fa3832
 
 ## Health endpoint differences
 
@@ -21,7 +25,11 @@ There are a few differences in how these two systems treat the associated health
 
 - PI Web API parses the information and sends it to configured PI servers for the OMF endpoint. The static data is used to create an AF structure on a PI AF server. The dynamic health data is time-series data that is stored in PI points on a PI Data Archive. You can see it in the AF structure as PI point data reference attributes.
 
+<<<<<<< HEAD
 - ADH does not currently provide a way to store the static metadata. For ADH-based adapter health endpoints, only the dynamic data is stored. Each value is its own stream with the timestamp property as the single index.
+=======
+- AVEVA Data Hub does not currently provide a way to store the static metadata. For AVEVA Data Hub-based adapter health endpoints, only the dynamic data is stored. Each value is its own stream with the timestamp property as the single index.
+>>>>>>> ece23c8ba636e7eaadcc979848d692db04fa3832
 
 ## AF structure
 
