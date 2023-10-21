@@ -4,7 +4,7 @@ uid: TroubleshootTheAdapter
 
 # Troubleshooting
 
-PI adapters provide features for troubleshooting issues related to connectivity, data flow, and configuration. Resources include adapter logs and the Wireshark troubleshooting tool . If you are still unable to resolve issues or need additional guidance, contact OSIsoft Technical Support through the [OSIsoft Customer Portal](https://my.osisoft.com/).
+AVEVA adapters provide features for troubleshooting issues related to connectivity, data flow, and configuration. Resources include adapter logs and the Wireshark troubleshooting tool . If you are still unable to resolve issues or need additional guidance, contact AVEVA PI Support through the [AVEVA Customer Portal](https://my.osisoft.com/).
 
 **Note:** Make sure to also check the troubleshooting information specific to your adapter in this user guide.
 
@@ -14,10 +14,10 @@ Messages from the System and OmfEgress logs provide information on the status of
 
 Perform the following steps to view the System and OmfEgress logs:
 
-1. Navigate to the logs directory:<br>
-    Windows: `%ProgramData%\OSIsoft\Adapters\<AdapterName>\Logs`<br>
-    Linux: `/usr/share/OSIsoft/Adapters/<AdapterName>/Logs`.<br><br>
-    **Example:**<br> A successful connection to a PI Web API egress endpoint displays the following message in the OmfEgress log:
+1. Navigate to the logs directory: 
+    Windows: `%ProgramData%\OSIsoft\Adapters\<AdapterName>\Logs` 
+    Linux: `/usr/share/OSIsoft/Adapters/<AdapterName>/Logs`.  
+    **Example:**  A successful connection to a PI Web API egress endpoint displays the following message in the OmfEgress log:
 
     ```json
     2020-11-02 11:08:51.870 -06:00 [Information] Data will be sent to the following OMF endpoint: 
@@ -58,7 +58,7 @@ To resolve the conflict, perform the following steps:
 
 ## Adapter connection to egress endpoint
 
-Certain egress health information in both PI Web API and OCS show if an adapter connection to an egress endpoint exists. To verify an active connection, perform one of the following procedures:
+Certain egress health information in both PI Web API and AVEVA Data Hub show if an adapter connection to an egress endpoint exists. To verify an active connection, perform one of the following procedures:
 
 ### PI Web API connection
 
@@ -71,11 +71,11 @@ Perform the following steps to determine if a connection to the PI Web API endpo
     - **NextHealthMessageExpected**
     - **IORate**
 
-### OCS connection
+### AVEVA Data Hub connection
 
-Perform the following steps to determine if a connection to the OCS endpoint exists:
+Perform the following steps to determine if a connection to the AVEVA Data Hub endpoint exists:
 
-1. Open OCS.
+1. Open AVEVA Data Hub.
 2. Click **Sequential Data Store** > **Streams**.
 3. Makes sure that  the following streams have been created for your egress endpoint:
     - **DeviceStatus**
@@ -89,3 +89,41 @@ Perform the following steps to see all established TCP sessions in Linux:
 1. Open a terminal.
 2. Type the following command: `ss  -o state established -t -p`
 3. Press Enter.
+
+## Egress debug logging
+
+Perform the following steps to enable debugging and to troubleshoot issues between the AVEVA Adapter and the egress destination:
+
+1. Set the appropriate time value for the **DebugExpiration** property in the egress configuration.
+   **Note:** To disable debugging, set the **DebugExpiration** property to `null`.
+2. Navigate to the debugging folder to review the logs.
+
+**Note:** We recommend enabling the egress debugging feature for a limited time to avoid running out of disk space.
+
+Date and time strings should use the following formats:
+
+UTC: `yyyy-mm-ddThh:mm:ssZ`
+
+Local: `yyyy-mm-ddThh:mm:ss`
+
+If the time is not specified, it will default to the start of the day (e.g., `2025-06-19` will default to `2025-06-19T00:00:00`)
+
+### Debugging folder or file structure
+
+Because the overall number and size of each request or response pair captured by debugging can be quite large, the debugging information is stored in a separate folder. Debugging folders and files are created in the logs folder as follows:
+
+Windows: `%programdata%\OSIsoft\Adapters\{adapterType}\Logs\EgressDebugLogs\{endpointType}\{egressId}\{omfType}\{Ticks}-{Guid}-{Req/Res}.txt`
+
+Linux: `/usr/share/OSIsoft/Adapters/{adapterType}/Logs/EgressDebugLogs/{endpointType}/{egressId}/{omfType}/{Ticks}-{Guid}-{Req/Res}.txt`
+
+The specific elements of the file structure are defined in the following table.
+
+| Element    | Represents                       |
+|------------|----------------------------------|
+| **adapterType** | The type of the adapter: OpcUa, Modbus, MQTT, and so on. |
+| **endpointType** | The type of egress endpoint: Data or Health. |
+| **egressId** | The Id of egress endpoint specified in configuration. |
+| **omfType**  | The OMF message type: Type, Container, or Data. |
+| **Ticks**    | The time in milliseconds (tick count) for UTC DateTime when the determined message was written to disk. |
+| **Guid**     | The unique GUID for each request or response pair. |
+| **Req/Res**  | Whether the message was HTTP request or response. |

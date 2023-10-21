@@ -7,7 +7,7 @@ uid: TextParser
 The adapter you are using includes the text parser component which ensures consistent parsing of text from different files. For more information on which file types are supported for your adapter, see the topics in this chapter.
 
 Designed to be a document parser, the text parser parses a semantically complete document in its entirety.
-The text parser produces OMF compatible output, which in turn is compatible with the OCS backing SDS (Sequential Data Store) that stores data in streams consisting of multiple values and indexes.
+The text parser produces OMF compatible output, which in turn is compatible with the AVEVA Data Hub backing SDS (Sequential Data Store) that stores data in streams consisting of multiple values and indexes.
 
 ## Data types supported by the text parser
 
@@ -54,7 +54,7 @@ Special character | Replacement character |
 
 ## Culture support
 
-Some numeric values and datetimes support cultures when they are being parsed. The default culture is `en-US (US English)` (InvariantCulture). OSIsoft recommends that you leave the adapter at the default unless you expect culturally variant input.
+Some numeric values and datetimes support cultures when they are being parsed. The default culture is `en-US (US English)` (InvariantCulture). AVEVA recommends that you leave the adapter at the default unless you expect culturally variant input.
 
 **Note:** Installed cultures vary by machine with both Linux and Windows. If the specified culture is not installed, the text parser fails to parse input that requires that culture.
 
